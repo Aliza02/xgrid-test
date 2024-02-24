@@ -116,52 +116,95 @@ class _productState extends State<product> {
                     return Container();
                   }
                 }),
+            Container(
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(left: Get.width * 0.02),
+              child: text(
+                title: "Recommended Products",
+                textColor: Colors.black,
+                fontSize: Get.width * 0.06,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             FutureBuilder(
                 future: loadData(),
                 builder: (context, snapshot) {
-                  if(snapshot.hasData)
-                  {return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.purpleAccent.shade100,
-                    ),
-                    child: Row(
-                      children: List.generate(
-                        3,
-                        (index) => Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Image.network(snapshot.data!["data"]["cart"]
-                                      ["recommended_products"]["products"]
-                                  [index]["thumb"]),
-                            ],
+                  if (snapshot.hasData) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          // color: Colors.purpleAccent.shade100,
+                          ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          2,
+                          (index) => Container(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                  snapshot.data!["data"]["cart"]["products"][0]
+                                      ["thumb"],
+                                  width: Get.width * 0.4,
+                                ),
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.02),
+                                  child: text(
+                                      title: snapshot.data!["data"]["cart"]
+                                          ["products"][0]["name"],
+                                      textColor: Colors.black,
+                                      fontSize: Get.width * 0.04,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                text(
+                                    title: snapshot.data!["data"]["cart"]
+                                        ["products"][0]["manufacturer_name"],
+                                    textColor: Colors.black,
+                                    fontSize: Get.width * 0.04,
+                                    fontWeight: FontWeight.normal),
+                                text(
+                                    title: snapshot.data!["data"]["cart"]
+                                            ["products"][0]["special"][0]
+                                        ["price_formated"],
+                                    textColor: Colors.red,
+                                    fontSize: Get.width * 0.04,
+                                    fontWeight: FontWeight.normal),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );}else{
+                    );
+                  } else {
                     return Container();
                   }
                 }),
             Spacer(),
             SizedBox(
               width: Get.width * 0.8,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: Get.height * 0.02,
+                ),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Checkout",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Get.width * 0.04,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                    onPressed: () {},
+                    child: Text(
+                      "Checkout",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Get.width * 0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+              ),
             ),
           ],
         ),
